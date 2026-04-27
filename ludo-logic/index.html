@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .box {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+        }
+
+        .box-selected {
+            width: 30px;
+            height: 30px;
+            border: 2px solid red;
+        }
+
+        .dice {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+
+<body>
+    <button class="dice"></button>
+
+    <div class="table">
+
+    </div>
+
+    <script>
+        // ____ Select table ...
+        const table = document.querySelector(".table")
+
+        const obj = {
+            "1": "2",
+            "2": "3",
+            "3": "4",
+            "4": "5",
+            "5": "6",
+            "6": "7",
+            "7": "8",
+            "8": "9",
+            "9": "10",
+            "10": "11",
+            "11": "12",
+            "12": "13",
+            "13": "14",
+            "14": "15",
+            "15": "16",
+            "16": "17",
+            "17": "18",
+            "18": "19",
+        }
+
+        let cursor = 1
+
+        // ____ Construct map to track which is selected ...
+        const map = {
+            "1": {
+                selected: false
+            }
+        }
+        for (let j = 1; j <= 18; j++) {
+            map[String(j)] = {
+                selected: false
+            }
+        }
+
+
+        // _____ Create grid ...
+        for (let i = 1; i < Object.keys(map).length; i++) {
+            const el = document.createElement("div")
+            el.dataset.id = i
+            table.appendChild(el)
+        }
+
+
+        function updateUI() {
+            diceButton.textContent = cursor
+            const el = document.querySelector(`[data-id="${cursor}"]`)
+            map[`${cursor}`].selected = true
+            el.className = "box-selected"
+        }
+
+        const diceButton = document.querySelector(".dice")
+
+        updateUI()
+        function generateRandom() {
+            cursor += Math.floor(Math.random() * 6 + 1)
+            updateUI()
+        }
+
+        diceButton.addEventListener("click", generateRandom)
+
+    </script>
+</body>
+
+</html>
